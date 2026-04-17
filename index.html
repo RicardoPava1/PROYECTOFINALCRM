@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCRM Dashboard | Pipeline Comercial</title>
+    <meta name="description" content="CRM dinámico para la gestión de Pipeline Comercial Corporativo, registro de clientes y análisis de segmentos.">
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for robust icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container glass-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-layer-group logo-icon"></i>
+                    <h2>Nex<span>CRM</span></h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button class="nav-btn active" id="btn-dashboard">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Panel Principal</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="nav-btn" id="btn-new-client">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Nuevo Cliente</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="user-info">
+                        <strong>Comercial Admin</strong>
+                        <span>Corporativo</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="topbar">
+                <div class="header-titles">
+                    <h1 id="page-title">Resumen de Ventas y Análisis</h1>
+                    <p id="page-subtitle">Información del Pipeline Comercial Corporativo</p>
+                </div>
+                <!-- Data Source Uploader Fallback (Visually hidden if fetched automatically) -->
+                <div class="upload-container" id="upload-container">
+                    <label for="excel-upload" class="upload-btn">
+                        <i class="fa-solid fa-file-excel"></i> Subir XLSX para Análisis
+                    </label>
+                    <input type="file" id="excel-upload" accept=".xlsx, .xls, .csv">
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- VIEW 1: DASHBOARD -->
+                <section id="view-dashboard" class="view-section active">
+                    <!-- Metrics Cards Top -->
+                    <div class="metrics-grid">
+                        <div class="metric-card glass-card">
+                            <div class="metric-icon blue-glow"><i class="fa-solid fa-users"></i></div>
+                            <div class="metric-info">
+                                <h3>Total Clientes</h3>
+                                <p class="metric-value" id="metric-total-clients">--</p>
+                            </div>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <div class="metric-icon purple-glow"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            <div class="metric-info">
+                                <h3>Equipos Cotizados</h3>
+                                <p class="metric-value" id="metric-total-equipments">--</p>
+                            </div>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <div class="metric-icon green-glow"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="metric-info">
+                                <h3>Promedio Cotiz.</h3>
+                                <p class="metric-value" id="metric-avg-equipments">--</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layout: Chart + Top Ranking -->
+                    <div class="analysis-grid">
+                        <!-- Chart: Segment Analysis -->
+                        <div class="analysis-card glass-card span-chart">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-chart-doughnut"></i> Análisis por Segmentos</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="segmentChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Top 10 Clients -->
+                        <div class="analysis-card glass-card span-ranking">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-award"></i> Top 10 Clientes (Ticket)</h3>
+                            </div>
+                            <div class="table-container">
+                                <table id="top-clients-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Pos</th>
+                                            <th>Cliente</th>
+                                            <th>Segmento</th>
+                                            <th>Equipos C.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top-clients-tbody">
+                                        <!-- Dynamic Content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: NEW CLIENT -->
+                <section id="view-new-client" class="view-section hidden">
+                    <div class="form-card glass-card">
+                        <div class="form-header">
+                            <h3><i class="fa-solid fa-address-card"></i> Ingresar Nuevo Prospecto al Pipeline</h3>
+                            <p>Registre aquí la información del cliente para incluirlo en su análisis de Dashboard.</p>
+                        </div>
+                        <form id="new-client-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="frm-nombre">Nombre del Contacto</label>
+                                    <input type="text" id="frm-nombre" required placeholder="Ej. Juan Pérez">
+                                </div>
+                                <div class="form-group">
+                                    <label for="frm-cargo">Cargo</label>
+                                    <input type="text" id="frm-cargo" required placeholder="Ej. Gerente Comercial">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="frm-cliente">Nombre de Cliente / Empresa</label>
+                                    <input type="text" id="frm-cliente" required placeholder="Ej. Global Corp S.A.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="frm-telefono">Número de teléfono</label>
+                                    <input type="tel" id="frm-telefono" required placeholder="Ej. 3001234567">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="frm-correo">Correo Electrónico</label>
+                                    <input type="email" id="frm-correo" required placeholder="ejemplo@empresa.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="frm-origen">Origen</label>
+                                    <select id="frm-origen" required>
+                                        <option value="" disabled selected>Seleccione fuente</option>
+                                        <option value="REFERIDO INTERNO">Referido Interno</option>
+                                        <option value="SOPORTE Y MEDICION">Soporte y Medición</option>
+                                        <option value="MULTIMARCA">Multimarca</option>
+                                        <option value="MARKETING DIGITAL">Marketing Digital</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="frm-segmento">Segmento</label>
+                                    <select id="frm-segmento" required>
+                                        <option value="" disabled selected>Seleccione ecosistema</option>
+                                        <option value="Hotelero">Hotelero</option>
+                                        <option value="Residencial">Residencial</option>
+                                        <option value="Centro comercial">Centro comercial</option>
+                                        <option value="Gobierno">Gobierno</option>
+                                        <option value="Industrial">Industrial</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="frm-equipos">Cantidad Equipos Cotizados</label>
+                                    <input type="number" id="frm-equipos" required min="1" placeholder="Número de equipos">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Registrar Nuevo Cliente</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Toast Notification -->
+            <div id="toast" class="toast hidden">
+                <div class="toast-content">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span id="toast-message">Cliente registrado exitosamente.</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

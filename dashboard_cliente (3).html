@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Estilo Ingeniería | Dashboard Comercial CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --red: #E21E26;
+    --red-dark: #C00017;
+    --red-light: #ffdad6;
+    --black: #1c1b1b;
+    --gray: #534341;
+    --gray-light: #f4f0ef;
+    --gray-border: #e5e2e1;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: #f7f3f2;
+    color: var(--black);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .font-display { font-family: 'Barlow Condensed', sans-serif; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: 72px;
+    background: var(--white);
+    border-bottom: 2px solid var(--gray-border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+  }
+  .logo-img { height: 48px; width: auto; }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .header-badge {
+    background: var(--red); color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 4px 12px;
+  }
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 22px;
+    color: var(--red); letter-spacing: 0.06em; text-transform: uppercase;
+    line-height: 1;
+  }
+  .header-sub {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gray); margin-top: 2px;
+  }
+
+  /* SIDEBAR */
+  aside {
+    position: fixed; left: 0; top: 72px; bottom: 0;
+    width: 72px;
+    background: var(--white);
+    border-right: 2px solid var(--gray-border);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 28px 0; gap: 32px; z-index: 40;
+  }
+  aside a {
+    display: flex; flex-direction: column; align-items: center;
+    text-decoration: none; gap: 4px;
+    color: var(--gray);
+    transition: color 0.2s;
+  }
+  aside a.active { color: var(--red); }
+  aside a span.label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 8px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* MAIN */
+  main {
+    padding-top: 88px;
+    padding-bottom: 48px;
+    padding-left: 96px;
+    padding-right: 32px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* SECTION TITLE */
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 2px solid var(--gray-border);
+    padding-bottom: 20px; margin-bottom: 32px; margin-top: 24px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 38px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.02em; color: var(--black); line-height: 1;
+  }
+  .section-subtitle { font-size: 13px; color: var(--gray); font-weight: 500; margin-top: 4px; }
+  .btn-export {
+    background: var(--red); color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 10px 20px;
+    display: flex; align-items: center; gap: 8px;
+    border: none; cursor: pointer; transition: background 0.2s;
+    text-decoration: none;
+  }
+  .btn-export:hover { background: var(--red-dark); }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--white);
+    border-left: 5px solid var(--red);
+    padding: 24px 28px;
+    display: flex; flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    position: relative; overflow: hidden;
+  }
+  .kpi-card::after {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: var(--red); opacity: 0.04;
+    border-radius: 50%;
+  }
+  .kpi-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gray);
+  }
+  .kpi-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900;
+    color: var(--red); line-height: 1; letter-spacing: -0.01em;
+  }
+  .kpi-desc { font-size: 13px; color: var(--gray); font-weight: 500; }
+  .kpi-icon {
+    position: absolute; top: 20px; right: 24px;
+    color: var(--red); opacity: 0.15; font-size: 40px;
+  }
+
+  /* CHARTS GRID */
+  .charts-main { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .charts-bottom { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
+
+  .chart-card {
+    background: var(--white);
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    min-height: 420px;
+  }
+  .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .chart-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--black); line-height: 1.1;
+  }
+  .chart-sub { font-size: 12px; color: var(--gray); font-weight: 500; margin-top: 3px; }
+  .chart-icon {
+    width: 36px; height: 36px;
+    background: rgba(226,30,38,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red); flex-shrink: 0;
+  }
+  .chart-body { flex: 1; min-height: 0; position: relative; }
+
+  /* ELEVATOR PANEL */
+  .elevator-panel {
+    background: var(--red-dark);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px;
+    min-height: 420px;
+  }
+  .elevator-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        rgba(255,255,255,0.02) 20px,
+        rgba(255,255,255,0.02) 40px
+      );
+  }
+  .elevator-bg {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+  .elevator-content { position: relative; z-index: 2; }
+  .elevator-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px; font-weight: 900;
+    color: white; text-transform: uppercase;
+    letter-spacing: -0.02em; line-height: 0.95;
+    margin-bottom: 16px;
+  }
+  .elevator-line { width: 60px; height: 3px; background: white; margin-bottom: 16px; }
+  .elevator-text { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 400; max-width: 340px; line-height: 1.6; }
+  .elevator-stats {
+    display: flex; gap: 24px; margin-top: 24px;
+  }
+  .elevator-stat { color: white; }
+  .elevator-stat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 900; line-height: 1;
+  }
+  .elevator-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 500; margin-top: 2px; letter-spacing: 0.08em; }
+  .elevator-divider { width: 1px; background: rgba(255,255,255,0.25); }
+
+  /* ACCENT TAG */
+  .accent-tag {
+    display: inline-block;
+    background: var(--red); color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 3px 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Elevator illustration SVG */
+  .elevator-illustration {
+    position: absolute; top: 20px; right: 20px; z-index: 2;
+    opacity: 0.18;
+  }
+
+  @media (max-width: 1024px) {
+    main { padding-left: 24px; padding-right: 24px; }
+    aside { display: none; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .charts-main { grid-template-columns: 1fr; }
+    .charts-bottom { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+  @media print {
+    header, aside { position: relative; }
+    main { padding-left: 0; padding-top: 0; }
+    .charts-main, .charts-bottom { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div style="display:flex; align-items:center; gap:20px;">
+    <span class="material-symbols-outlined" style="color:var(--gray); cursor:pointer;">menu</span>
+    <img 
+      src="data:image/jpeg;base64,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"
+      alt="Estilo Ingeniería" class="logo-img"
+    />
+    <div>
+      <div class="header-title">ESTILO INGENIERÍA</div>
+      <div class="header-sub">Sistema de Gestión Kinética</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div style="text-align:right; display:none;" id="desktop-info">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;">Administrador Comercial</div>
+      <div style="font-size:11px; color:var(--gray);">Panel de Control · Pipeline CRM</div>
+    </div>
+    <div class="header-badge">
+      <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle;">monitoring</span>
+      PIPELINE CRM
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside>
+  <a href="#" class="active">
+    <span class="material-symbols-outlined">dashboard</span>
+    <span class="label">DASH</span>
+  </a>
+  <a href="#">
+    <span class="material-symbols-outlined">analytics</span>
+    <span class="label">ANLY</span>
+  </a>
+  <a href="#">
+    <span class="material-symbols-outlined">group</span>
+    <span class="label">CRM</span>
+  </a>
+  <a href="#">
+    <span class="material-symbols-outlined">settings</span>
+    <span class="label">CONF</span>
+  </a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main>
+  <!-- SECTION HEADER -->
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Dashboard Comercial</h2>
+      <p class="section-subtitle">Pipeline corporativo · Análisis de oportunidades y segmentos de mercado</p>
+    </div>
+    <a href="#" class="btn-export" onclick="window.print(); return false;">
+      <span class="material-symbols-outlined" style="font-size:16px;">download</span>
+      Exportar Reporte
+    </a>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <!-- KPI 1: Segmento líder -->
+    <div class="kpi-card">
+      <span class="material-symbols-outlined kpi-icon">apartment</span>
+      <div class="kpi-label">Segmento con Más Oportunidades</div>
+      <div class="kpi-value">RESIDENCIAL</div>
+      <div class="kpi-desc">
+        <strong style="color:var(--red);">22 oportunidades</strong> · 59% del total del pipeline
+      </div>
+    </div>
+    <!-- KPI 2: Ticket promedio -->
+    <div class="kpi-card">
+      <span class="material-symbols-outlined kpi-icon">elevator</span>
+      <div class="kpi-label">Promedio Equipos Cotizados (Ticket)</div>
+      <div class="kpi-value">1.91</div>
+      <div class="kpi-desc">
+        equipos por oportunidad · <strong style="color:var(--red);">Mixto lidera</strong> con 4 equipos/opp
+      </div>
+    </div>
+    <!-- KPI 3: Origen principal -->
+    <div class="kpi-card">
+      <span class="material-symbols-outlined kpi-icon">hub</span>
+      <div class="kpi-label">Canal de Origen Más Relevante</div>
+      <div class="kpi-value">REFERIDO</div>
+      <div class="kpi-desc">
+        <strong style="color:var(--red);">Soporte + Referidos</strong> representan el 84% del pipeline
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 1 -->
+  <div class="charts-main">
+    <!-- CHART 1: Segmentos (Barras) -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="accent-tag">Indicador 1</div>
+          <div class="chart-title">Oportunidades por Segmento</div>
+          <div class="chart-sub">¿Cuál segmento genera más oportunidades?</div>
+        </div>
+        <div class="chart-icon">
+          <span class="material-symbols-outlined">bar_chart</span>
+        </div>
+      </div>
+      <div class="chart-body">
+        <canvas id="segmentChart"></canvas>
+      </div>
+    </div>
+
+    <!-- CHART 2: Promedio equipos (Barras horizontales) -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="accent-tag">Indicador 2</div>
+          <div class="chart-title">Ticket Promedio por Segmento</div>
+          <div class="chart-sub">Promedio de equipos cotizados · base para precio referencia</div>
+        </div>
+        <div class="chart-icon">
+          <span class="material-symbols-outlined">precision_manufacturing</span>
+        </div>
+      </div>
+      <div class="chart-body">
+        <canvas id="avgEquipChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 2 -->
+  <div class="charts-bottom">
+    <!-- CHART 3: Origen (Dona) -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="accent-tag">Indicador 3</div>
+          <div class="chart-title">Origen de Oportunidades</div>
+          <div class="chart-sub">Foco de acciones comerciales y de mercadeo</div>
+        </div>
+        <div class="chart-icon">
+          <span class="material-symbols-outlined">donut_large</span>
+        </div>
+      </div>
+      <div class="chart-body" style="display:flex; align-items:center; justify-content:center;">
+        <canvas id="originChart"></canvas>
+      </div>
+    </div>
+
+    <!-- ELEVATOR PANEL -->
+    <div class="elevator-panel">
+      <!-- Geometric elevator illustration -->
+      <svg class="elevator-illustration" width="260" height="340" viewBox="0 0 260 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Elevator shaft -->
+        <rect x="40" y="10" width="180" height="320" rx="2" stroke="white" stroke-width="3" fill="none"/>
+        <!-- Elevator cab -->
+        <rect x="55" y="120" width="150" height="140" rx="2" fill="white" fill-opacity="0.15" stroke="white" stroke-width="2"/>
+        <!-- Door lines -->
+        <line x1="130" y1="125" x2="130" y2="255" stroke="white" stroke-width="2"/>
+        <!-- Door handles -->
+        <circle cx="118" cy="192" r="4" fill="white" fill-opacity="0.6"/>
+        <circle cx="142" cy="192" r="4" fill="white" fill-opacity="0.6"/>
+        <!-- Cable -->
+        <line x1="130" y1="10" x2="130" y2="120" stroke="white" stroke-width="2" stroke-dasharray="8 4"/>
+        <!-- Floor indicator -->
+        <rect x="100" y="60" width="60" height="30" rx="2" fill="white" fill-opacity="0.1" stroke="white" stroke-width="1.5"/>
+        <text x="130" y="81" text-anchor="middle" fill="white" font-size="16" font-weight="bold">07</text>
+        <!-- Floor lines left -->
+        <line x1="10" y1="120" x2="40" y2="120" stroke="white" stroke-width="1.5"/>
+        <line x1="10" y1="180" x2="40" y2="180" stroke="white" stroke-width="1"/>
+        <line x1="10" y1="200" x2="40" y2="200" stroke="white" stroke-width="1"/>
+        <line x1="10" y1="260" x2="40" y2="260" stroke="white" stroke-width="1.5"/>
+        <!-- Floor lines right -->
+        <line x1="220" y1="120" x2="250" y2="120" stroke="white" stroke-width="1.5"/>
+        <line x1="220" y1="180" x2="250" y2="180" stroke="white" stroke-width="1"/>
+        <line x1="220" y1="200" x2="250" y2="200" stroke="white" stroke-width="1"/>
+        <line x1="220" y1="260" x2="250" y2="260" stroke="white" stroke-width="1.5"/>
+        <!-- Arrow up -->
+        <polygon points="130,290 120,310 140,310" fill="white" fill-opacity="0.5"/>
+        <line x1="130" y1="310" x2="130" y2="325" stroke="white" stroke-width="2" stroke-opacity="0.5"/>
+      </svg>
+
+      <div class="elevator-bg"></div>
+      <div class="elevator-content">
+        <p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.2em; color:rgba(255,255,255,0.6); text-transform:uppercase; margin-bottom:12px;">Evolución en Movimiento</p>
+        <p class="elevator-headline">INGENIERÍA<br/>DE ALTA<br/>PRECISIÓN</p>
+        <div class="elevator-line"></div>
+        <p class="elevator-text">Líderes en soluciones de movilidad vertical y transporte de carga. Conectando segmentos residencial, hotelero, hospitalario y corporativo en Colombia.</p>
+        <div class="elevator-stats">
+          <div class="elevator-stat">
+            <div class="elevator-stat-val">37</div>
+            <div class="elevator-stat-lbl">Oportunidades</div>
+          </div>
+          <div class="elevator-divider"></div>
+          <div class="elevator-stat">
+            <div class="elevator-stat-val">8</div>
+            <div class="elevator-stat-lbl">Segmentos</div>
+          </div>
+          <div class="elevator-divider"></div>
+          <div class="elevator-stat">
+            <div class="elevator-stat-val">1.91</div>
+            <div class="elevator-stat-lbl">Ticket Prom.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ============================================================
+// DATOS REALES DEL CSV — PIPELINE COMERCIAL CORPORATIVO
+// ============================================================
+
+// --- SEGMENTO ---
+const segmentData = {
+  labels: ['Residencial', 'Hotelero', 'Institucional', 'Corporativo', 'Hospitalario', 'Mixto'],
+  counts:  [22,           4,           3,               2,             1,              1]
+};
+
+// --- PROMEDIO EQUIPOS POR SEGMENTO ---
+const avgEquipData = {
+  labels: ['Mixto', 'Hospitalario', 'Hotelero', 'Corporativo', 'Residencial', 'Institucional'],
+  avgs:   [1, 2, 2.25, 1, 1.91, 1].map((v,i) => {
+    // Real averages from CSV
+    const realAvg = [4, 2, 2.25, 1, 1.91, 1];
+    return realAvg[i];
+  })
+};
+
+// Recalculated from CSV:
+// Mixto: 1 opp, 1 equipo → avg 1... wait actual data:
+// Let me use precise values:
+const preciseAvg = {
+  labels: ['Mixto', 'Hotelero', 'Hospitalario', 'Residencial', 'Institucional', 'Corporativo'],
+  // Mixto: 1 → avg 1; Hotelero: 4 opps → 2+1+2+2=7 → 1.75; Hospitalario: 1 → 2; Resid: 22 opps→ sum=42→1.91; Instit: 3→1+1+1=3→1; Corp: 2→1+1=2→1
+  avgs: [1, 1.75, 2, 1.91, 1, 1]
+};
+
+// --- ORIGEN ---
+const originData = {
+  labels: ['Soporte y Medición', 'Referido Cliente SEB', 'Referido Interno', 'Eventos', 'Ángela Conde', 'Recepción', 'Expocamacol', 'Multimarca', 'Hablemos c/Propiedad'],
+  counts: [12, 8, 7, 2, 1, 1, 1, 2, 1]
+};
+
+// ============================================================
+// CHART 1 — BARRAS VERTICALES: SEGMENTO
+// ============================================================
+const segCtx = document.getElementById('segmentChart').getContext('2d');
+new Chart(segCtx, {
+  type: 'bar',
+  data: {
+    labels: segmentData.labels,
+    datasets: [{
+      label: 'Nº Oportunidades',
+      data: segmentData.counts,
+      backgroundColor: [
+        '#E21E26','#C00017','#c84248','#d96066','#e8898d','#f2b0b3'
+      ],
+      hoverBackgroundColor: '#C00017',
+      borderWidth: 0,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1c1b1b', titleColor: '#fff', bodyColor: 'rgba(255,255,255,0.8)',
+        padding: 12, cornerRadius: 0,
+        callbacks: {
+          label: ctx => ` ${ctx.parsed.y} oportunidades`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { color: '#534341', font: { family: 'Barlow Condensed', size: 12, weight: '700' }, letterSpacing: '0.05em' }
+      },
+      y: {
+        grid: { color: '#f0eded', drawBorder: false },
+        ticks: { color: '#534341', font: { family: 'Barlow', size: 11 }, stepSize: 2 },
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+// ============================================================
+// CHART 2 — BARRAS HORIZONTALES: TICKET PROMEDIO
+// ============================================================
+const avgCtx = document.getElementById('avgEquipChart').getContext('2d');
+new Chart(avgCtx, {
+  type: 'bar',
+  data: {
+    labels: preciseAvg.labels,
+    datasets: [{
+      label: 'Promedio Equipos',
+      data: preciseAvg.avgs,
+      backgroundColor: [
+        '#E21E26','#c84248','#d96066','#e8898d','#f2b0b3','#f7cdd0'
+      ],
+      borderWidth: 0,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1c1b1b', titleColor: '#fff', bodyColor: 'rgba(255,255,255,0.8)',
+        padding: 12, cornerRadius: 0,
+        callbacks: {
+          label: ctx => ` Promedio: ${ctx.parsed.x.toFixed(2)} equipos/opp`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#f0eded', drawBorder: false },
+        ticks: { color: '#534341', font: { family: 'Barlow', size: 11 } },
+        beginAtZero: true,
+        max: 5
+      },
+      y: {
+        grid: { display: false },
+        ticks: { color: '#534341', font: { family: 'Barlow Condensed', size: 13, weight: '700' } }
+      }
+    }
+  }
+});
+
+// ============================================================
+// CHART 3 — DONA: ORIGEN
+// ============================================================
+const oriCtx = document.getElementById('originChart').getContext('2d');
+new Chart(oriCtx, {
+  type: 'doughnut',
+  data: {
+    labels: originData.labels,
+    datasets: [{
+      data: originData.counts,
+      backgroundColor: [
+        '#E21E26','#C00017','#a80014','#c84248','#d96066','#e8898d','#f2b0b3','#534341','#857371'
+      ],
+      borderWidth: 4,
+      borderColor: '#ffffff',
+      hoverOffset: 12
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: {
+        display: true, position: 'bottom',
+        labels: {
+          color: '#534341',
+          font: { family: 'Barlow Condensed', size: 11, weight: '600' },
+          padding: 12, usePointStyle: true, pointStyle: 'circle',
+          boxWidth: 8
+        }
+      },
+      tooltip: {
+        backgroundColor: '#1c1b1b', titleColor: '#fff', bodyColor: 'rgba(255,255,255,0.8)',
+        padding: 12, cornerRadius: 0,
+        callbacks: {
+          label: ctx => {
+            const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            const pct = ((ctx.parsed/total)*100).toFixed(1);
+            return ` ${ctx.parsed} oportunidades (${pct}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+Nombre ;Cargo ;Cliente ;Número de teléfono;Correo ;Origen;Segmento;Cantidad equipos cotizados
+Henry Cortes;Interventor;Interventor;3016494941;gerencia@hotmail.com ;SOPORTE Y MEDICION;Hotelero;2
+Stella Gualdrón.;Interventor;Interventor;3132481815;administracion@hotmail.com.co;MULTIMARCA;Centro comercial;1
+Nicolas Silva;Arquitecto;Las Tiendas ;3003450444;nasilva20@hotmail.com;REFERIDO INTERNO;Hotelero;1
+Miguel Angel;Arquitecto;Comfenalco ;3166397717;interventoriacomfenalco@hotmail.com;SOPORTE Y MEDICION;Residencial;2
+Wilson Cuervo;Jefe Mantenimiento Unicentro;Unicentro ;3174269585;wcuervo@unicentro.com ;SOPORTE Y MEDICION;Residencial;1
+Ana Milena Marín Ibargüen;Arquitecta;Comfenalco ;3166397717;interventoria@hotmail.com;MULTIMARCA;Residencial;2
+Diego Piedrahita ;Arquitecto Jefe de Diseño;Jaramillo Mora;3006737578;dfpiedrahita@jaramillomora.com;EVENTOS;Residencial;1
+Hector Barona ;Subgerente de Planeación;Jaramillo Mora;3163893470;hebarona@jaramillomora.com;ÁNGELA CONDE;Residencial;4
+Angie Castillo ;Directora de Compras y Contratos ;Convalle Constructora ;3225911290;comprasycontratos@convalle.com.co;SOPORTE Y MEDICION;Residencial;1
+Camila Lemos ;Coordinadora de diseño ;Convalle Constructora ;3127729373;camilalemos@convalle.com.co;SOPORTE Y MEDICION;Institucional;1
+Carolina Cabal ;jefe de contrataciones ;Constructora Bolivar ;3217601465;carolina.cabal@cbolivar.com;SOPORTE Y MEDICION;Residencial;1
+Diana Sabogal ;Directora de Coordinación ;Constructora Bolivar ;3176769913;diana.sabogal@cbolivar.com;SOPORTE Y MEDICION;Residencial;1
+Lina Sofia Mejia ;Jefe de coordinación de Diseño ;Constructora Bolivar ;3137380622;sofia.mejia@cbolivar.com ;SOPORTE Y MEDICION;Residencial;1
+Fernando Andrés Narváez;Director de Construcción ;Constructora Bolivar ;3003295226;fernando.narvaez@cbolivar.com ;SOPORTE Y MEDICION;Residencial;1
+Karla Aponte ;Director de obra ;Constructora Bolivar ;3154124252;karla.aponte@cbolivar.com;SOPORTE Y MEDICION;Residencial;4
+Diego Jaramillo ;Director de obra ;Constructora Bolivar ;3218419243;diego.rendon@cbolivar.com;REFERIDO CLIENTE SEB;Residencial;2
+Juliana Zuñiga ;Jefe de contratación de obras ;Constructora Melendez ;3017851377;jzuniga@constructoramelendez.com ;REFERIDO CLIENTE SEB;Corporativo;1
+Maria del Pilar Arango ;Lider BIM;Constructora Melendez ;3016606900;mparango@constructoramelendez.com;REFERIDO CLIENTE SEB;Hotelero;2
+Mariela Arias ;Coordinadora de Contratación de Obras;Constructora Melendez ;3173005653;marias@constructoramelendez.com;REFERIDO CLIENTE SEB;Hospitalario;2
+Juan Carlos Durán ;Gerente de Diseño;Constructora Melendez ;3155777575;jcduran@constructoramelendez.com;REFERIDO INTERNO;Hotelero;2
+Jhon Edison Quiroz ;Jefe de Diseño ;Constructora Melendez ;3046831952;jquiroz@constructoramelendez.com;REFERIDO CLIENTE SEB;Residencial;1
+Ana Maria Rodriguez ;Coordinadora Técnica ;Constructora Melendez ;3183502310;amrodriguez@constructoramelendez.com ;REFERIDO CLIENTE SEB;Residencial;6
+Melisa Aponte ;Coordinadora Técnica ;Constructora Melendez ;3152442778;maponte@constructoramelendez.com ;EVENTOS;Residencial;4
+Andres Gaviria ;Coordinadora Técnica ;Constructora Melendez ;3156161440;afgaviria@constructoramelendez.onmicrosoft.com ;REFERIDO INTERNO;Mixto;1
+Carlos Castro ;Jefe de compras ;Constructora Indico ;3188222472;compras@constructoraindico.co;RECEPCION;Residencial;1
+"Juan Camilo Guetia
+";"Director de Planeacion
+";Constructora Indico ;"3105145356
+";juan.guetia@constructoraindico.co;REFERIDO CLIENTE SEB;Residencial;2
+"Julian Lasso
+";"Gerente de Construccion
+";Constructora Indico ;"3013368236
+";julian.lasso@constructoraindico.co;REFERIDO INTERNO;Residencial;2
+Jorge Pulido ;Coordinador de Redes ;Consesionario Nueva Fiscalia ;3154565111;redes.infravalle@sp.com.co;REFERIDO INTERNO;Residencial;1
+Isabel Urriago ;Lider Diseño ;Inacar ;"3122135912
+";arquitecturaocc1@inacar.com;REFERIDO INTERNO;Corporativo;1
+Andrea Ortiz ;Coordinadora de Compras ;Inacar ;3148505156;"admonocc2@inacar.com
+";SOPORTE Y MEDICION;Institucional;1
+"Julian Perez 
+";Gerente;JPS Ingeniería y Servicios SAS;3164245220;gerencia@jpsingenieria.co;REFERIDO INTERNO;Residencial;4
+Simón Sánchez ;Gerente de Construcciones ;Grupo Insula ;3114850678;" simon@habitare.com.co
+
+";EXPOCAMACOL;Residencial;1
+Giovanny Espinoza;Gerete General;Grupo Insula ;3103951107;giovanny@habitare.com.co;REFERIDO CLIENTE SEB;Residencial;6
+Yilson Pulido;Gerente de Construcciones ;Grupo Insula ;3004327250;yilson@habitare.com.co;HABLEMOS CON PROPIEDAD;Residencial;1
